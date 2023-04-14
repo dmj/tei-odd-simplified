@@ -9,6 +9,8 @@
         <alternate minOccurs="1" maxOccurs="unbounded">
           <elementRef key="elementSpec"/>
           <elementRef key="dataSpec"/>
+          <elementRef key="modelClassSpec"/>
+          <elementRef key="attClassSpec"/>
         </alternate>
       </sequence>
     </content>
@@ -299,6 +301,41 @@
         <datatype>
           <dataRef name="string"/>
         </datatype>
+      </attDef>
+    </attList>
+  </elementSpec>
+
+  <elementSpec ident="modelClassSpec">
+    <altIdent>classSpec</altIdent>
+    <content>
+      <sequence>
+        <elementRef key="gloss" minOccurs="0" maxOccurs="unbounded"/>
+        <elementRef key="desc" minOccurs="0" maxOccurs="unbounded"/>
+      </sequence>
+    </content>
+    <attList>
+      <attDef ident="type" usage="req">
+        <valList type="closed">
+          <valItem ident="model"/>
+        </valList>
+      </attDef>
+    </attList>
+  </elementSpec>
+
+  <elementSpec ident="attClassSpec">
+    <altIdent>classSpec</altIdent>
+    <content>
+      <sequence>
+        <elementRef key="gloss" minOccurs="0" maxOccurs="unbounded"/>
+        <elementRef key="desc" minOccurs="0" maxOccurs="unbounded"/>
+        <elementRef key="attList" minOccurs="0" maxOccurs="1"/>
+      </sequence>
+    </content>
+    <attList>
+      <attDef ident="type" usage="req">
+        <valList type="closed">
+          <valItem ident="atts"/>
+        </valList>
       </attDef>
     </attList>
   </elementSpec>

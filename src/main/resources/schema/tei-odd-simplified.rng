@@ -23,11 +23,15 @@
             <rng:choice>
                <rng:ref name="elementSpec"/>
                <rng:ref name="dataSpec"/>
+               <rng:ref name="modelClassSpec"/>
+               <rng:ref name="attClassSpec"/>
             </rng:choice>
             <rng:zeroOrMore>
                <rng:choice>
                   <rng:ref name="elementSpec"/>
                   <rng:ref name="dataSpec"/>
+                  <rng:ref name="modelClassSpec"/>
+                  <rng:ref name="attClassSpec"/>
                </rng:choice>
             </rng:zeroOrMore>
          </group>
@@ -138,6 +142,7 @@
    <rng:define name="sequence">
       <rng:element name="sequence" ns="http://www.tei-c.org/ns/1.0">
          <rng:choice>
+            <rng:ref name="textNode"/>
             <rng:ref name="sequence"/>
             <rng:ref name="alternate"/>
             <rng:ref name="elementRef"/>
@@ -146,6 +151,7 @@
          </rng:choice>
          <rng:zeroOrMore>
             <rng:choice>
+               <rng:ref name="textNode"/>
                <rng:ref name="sequence"/>
                <rng:ref name="alternate"/>
                <rng:ref name="elementRef"/>
@@ -180,6 +186,7 @@
    <rng:define name="alternate">
       <rng:element name="alternate" ns="http://www.tei-c.org/ns/1.0">
          <rng:choice>
+            <rng:ref name="textNode"/>
             <rng:ref name="sequence"/>
             <rng:ref name="alternate"/>
             <rng:ref name="elementRef"/>
@@ -188,6 +195,7 @@
          </rng:choice>
          <rng:zeroOrMore>
             <rng:choice>
+               <rng:ref name="textNode"/>
                <rng:ref name="sequence"/>
                <rng:ref name="alternate"/>
                <rng:ref name="elementRef"/>
@@ -351,6 +359,47 @@
                   <rng:data type="string"/>
                </rng:attribute>
             </rng:optional>
+         </rng:group>
+      </rng:element>
+   </rng:define>
+   <rng:define name="modelClassSpec">
+      <rng:element name="classSpec" ns="http://www.tei-c.org/ns/1.0">
+         <group xmlns="http://relaxng.org/ns/structure/1.0">
+            <rng:zeroOrMore>
+               <rng:ref name="gloss"/>
+            </rng:zeroOrMore>
+            <rng:zeroOrMore>
+               <rng:ref name="desc"/>
+            </rng:zeroOrMore>
+         </group>
+         <rng:group>
+            <rng:attribute name="type" ns="">
+               <rng:choice>
+                  <rng:value>model</rng:value>
+               </rng:choice>
+            </rng:attribute>
+         </rng:group>
+      </rng:element>
+   </rng:define>
+   <rng:define name="attClassSpec">
+      <rng:element name="classSpec" ns="http://www.tei-c.org/ns/1.0">
+         <group xmlns="http://relaxng.org/ns/structure/1.0">
+            <rng:zeroOrMore>
+               <rng:ref name="gloss"/>
+            </rng:zeroOrMore>
+            <rng:zeroOrMore>
+               <rng:ref name="desc"/>
+            </rng:zeroOrMore>
+            <rng:optional>
+               <rng:ref name="attList"/>
+            </rng:optional>
+         </group>
+         <rng:group>
+            <rng:attribute name="type" ns="">
+               <rng:choice>
+                  <rng:value>atts</rng:value>
+               </rng:choice>
+            </rng:attribute>
          </rng:group>
       </rng:element>
    </rng:define>
