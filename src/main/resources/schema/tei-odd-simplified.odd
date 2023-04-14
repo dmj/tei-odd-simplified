@@ -2,6 +2,9 @@
 <?xml-model href="tei-odd-simplified.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <schemaSpec ident="tei-odd-simplified" start="schemaSpec" xmlns="http://www.tei-c.org/ns/1.0">
   <elementSpec ident="schemaSpec">
+    <classes>
+      <memberOf key="att.global"/>
+    </classes>
     <content>
       <sequence>
         <elementRef key="gloss" minOccurs="0" maxOccurs="unbounded"/>
@@ -17,7 +20,7 @@
     <attList>
       <attDef ident="ident" usage="req">
         <datatype>
-          <dataRef name="Name"/>
+          <dataRef name="ID"/>
         </datatype>
       </attDef>
       <attDef ident="start" usage="req">
@@ -29,32 +32,27 @@
   </elementSpec>
 
   <elementSpec ident="gloss">
+    <classes>
+      <memberOf key="att.global"/>
+    </classes>
     <content>
       <textNode/>
     </content>
-    <attList>
-      <attDef ident="lang" ns="http://www.w3.org/XML/1998/namespace" usage="opt">
-        <datatype>
-          <dataRef name="language"/>
-        </datatype>
-      </attDef>
-    </attList>
   </elementSpec>
 
   <elementSpec ident="desc">
+    <classes>
+      <memberOf key="att.global"/>
+    </classes>
     <content>
       <textNode/>
     </content>
-    <attList>
-      <attDef ident="lang" ns="http://www.w3.org/XML/1998/namespace" usage="opt">
-        <datatype>
-          <dataRef name="language"/>
-        </datatype>
-      </attDef>
-    </attList>
   </elementSpec>
 
   <elementSpec ident="dataSpec">
+    <classes>
+      <memberOf key="att.global"/>
+    </classes>
     <content>
       <sequence>
         <elementRef key="gloss" minOccurs="0" maxOccurs="unbounded"/>
@@ -72,11 +70,15 @@
   </elementSpec>
 
   <elementSpec ident="elementSpec">
+    <classes>
+      <memberOf key="att.global"/>
+    </classes>
     <content>
       <sequence>
         <elementRef key="altIdent" minOccurs="0" maxOccurs="1"/>
         <elementRef key="gloss" minOccurs="0" maxOccurs="unbounded"/>
         <elementRef key="desc" minOccurs="0" maxOccurs="unbounded"/>
+        <elementRef key="classes" minOccurs="0" maxOccurs="1"/>
         <elementRef key="content"/>
         <elementRef key="attList" minOccurs="0" maxOccurs="1"/>
       </sequence>
@@ -97,41 +99,67 @@
 
   <elementSpec ident="content">
     <altIdent>content</altIdent>
+    <classes>
+      <memberOf key="att.global"/>
+    </classes>
     <content>
-      <alternate>
-        <elementRef key="textNode"/>
-        <elementRef key="empty"/>
-        <elementRef key="sequence"/>
-        <elementRef key="alternate"/>
-        <elementRef key="elementRef"/>
-        <elementRef key="dataRef"/>
-        <elementRef key="valList"/>
-      </alternate>
+      <classRef key="model.content" minOccurs="1" maxOccurs="unbounded"/>
     </content>
   </elementSpec>
 
+  <elementSpec ident="classRef">
+    <classes>
+      <memberOf key="att.global"/>
+      <memberOf key="model.content"/>
+    </classes>
+    <content>
+      <empty/>
+    </content>
+    <attList>
+      <attDef ident="key" usage="req">
+        <datatype>
+          <dataRef name="IDREF"/>
+        </datatype>
+      </attDef>
+      <attDef ident="minOccurs" usage="opt">
+        <datatype>
+          <dataRef name="nonNegativeInteger"/>
+        </datatype>
+      </attDef>
+      <attDef ident="maxOccurs" usage="opt">
+        <datatype>
+          <dataRef key="nonNegativeIntegerOrUnbounded"/>
+        </datatype>
+      </attDef>
+    </attList>
+  </elementSpec>
+
   <elementSpec ident="altIdent">
+    <classes>
+      <memberOf key="att.global"/>
+    </classes>
     <content>
       <dataRef name="Name"/>
     </content>
   </elementSpec>
 
   <elementSpec ident="textNode">
+    <classes>
+      <memberOf key="att.global"/>
+      <memberOf key="model.content"/>
+    </classes>
     <content>
       <empty/>
     </content>
   </elementSpec>
 
   <elementSpec ident="sequence">
+    <classes>
+      <memberOf key="att.global"/>
+      <memberOf key="model.content"/>
+    </classes>
     <content>
-      <alternate minOccurs="1" maxOccurs="unbounded">
-        <elementRef key="textNode"/>
-        <elementRef key="sequence"/>
-        <elementRef key="alternate"/>
-        <elementRef key="elementRef"/>
-        <elementRef key="dataRef"/>
-        <elementRef key="valList"/>
-      </alternate>
+      <classRef key="model.content" minOccurs="1" maxOccurs="unbounded"/>
     </content>
     <attList>
       <attDef ident="preserveOrder" usage="opt">
@@ -153,15 +181,12 @@
   </elementSpec>
 
   <elementSpec ident="alternate">
+    <classes>
+      <memberOf key="att.global"/>
+      <memberOf key="model.content"/>
+    </classes>
     <content>
-      <alternate minOccurs="1" maxOccurs="unbounded">
-        <elementRef key="textNode"/>
-        <elementRef key="sequence"/>
-        <elementRef key="alternate"/>
-        <elementRef key="elementRef"/>
-        <elementRef key="dataRef"/>
-        <elementRef key="valList"/>
-      </alternate>
+      <classRef key="model.content" minOccurs="1" maxOccurs="unbounded"/>
     </content>
     <attList>
       <attDef ident="minOccurs" usage="opt">
@@ -178,12 +203,20 @@
   </elementSpec>
 
   <elementSpec ident="empty">
+    <classes>
+      <memberOf key="att.global"/>
+      <memberOf key="model.content"/>
+    </classes>
     <content>
       <empty/>
     </content>
   </elementSpec>
 
   <elementSpec ident="elementRef">
+    <classes>
+      <memberOf key="att.global"/>
+      <memberOf key="model.content"/>
+    </classes>
     <content>
       <empty/>
     </content>
@@ -207,6 +240,9 @@
   </elementSpec>
 
   <elementSpec ident="attList">
+    <classes>
+      <memberOf key="att.global"/>
+    </classes>
     <content>
       <alternate minOccurs="1" maxOccurs="unbounded">
         <elementRef key="attList"/>
@@ -224,6 +260,9 @@
   </elementSpec>
 
   <elementSpec ident="attDef">
+    <classes>
+      <memberOf key="att.global"/>
+    </classes>
     <content>
       <sequence>
         <elementRef key="gloss" minOccurs="0" maxOccurs="unbounded"/>
@@ -255,12 +294,19 @@
   </elementSpec>
 
   <elementSpec ident="datatype">
+    <classes>
+      <memberOf key="att.global"/>
+    </classes>
     <content>
       <elementRef key="dataRef"/>
     </content>
   </elementSpec>
 
   <elementSpec ident="dataRef">
+    <classes>
+      <memberOf key="att.global"/>
+      <memberOf key="model.content"/>
+    </classes>
     <content>
       <empty/>
     </content>
@@ -279,6 +325,10 @@
   </elementSpec>
 
   <elementSpec ident="valList">
+    <classes>
+      <memberOf key="att.global"/>
+      <memberOf key="model.content"/>
+    </classes>
     <content>
       <elementRef key="valItem" minOccurs="1" maxOccurs="unbounded"/>
     </content>
@@ -293,6 +343,9 @@
   </elementSpec>
 
   <elementSpec ident="valItem">
+    <classes>
+      <memberOf key="att.global"/>
+    </classes>
     <content>
       <empty/>
     </content>
@@ -307,6 +360,9 @@
 
   <elementSpec ident="modelClassSpec">
     <altIdent>classSpec</altIdent>
+    <classes>
+      <memberOf key="att.global"/>
+    </classes>
     <content>
       <sequence>
         <elementRef key="gloss" minOccurs="0" maxOccurs="unbounded"/>
@@ -314,6 +370,11 @@
       </sequence>
     </content>
     <attList>
+      <attDef ident="ident" usage="req">
+        <datatype>
+          <dataRef name="ID"/>
+        </datatype>
+      </attDef>
       <attDef ident="type" usage="req">
         <valList type="closed">
           <valItem ident="model"/>
@@ -324,6 +385,9 @@
 
   <elementSpec ident="attClassSpec">
     <altIdent>classSpec</altIdent>
+    <classes>
+      <memberOf key="att.global"/>
+    </classes>
     <content>
       <sequence>
         <elementRef key="gloss" minOccurs="0" maxOccurs="unbounded"/>
@@ -332,10 +396,40 @@
       </sequence>
     </content>
     <attList>
+      <attDef ident="ident" usage="req">
+        <datatype>
+          <dataRef name="ID"/>
+        </datatype>
+      </attDef>
       <attDef ident="type" usage="req">
         <valList type="closed">
           <valItem ident="atts"/>
         </valList>
+      </attDef>
+    </attList>
+  </elementSpec>
+
+  <elementSpec ident="classes">
+    <classes>
+      <memberOf key="att.global"/>
+    </classes>
+    <content>
+      <elementRef key="memberOf" minOccurs="1" maxOccurs="unbounded"/>
+    </content>
+  </elementSpec>
+
+  <elementSpec ident="memberOf">
+    <classes>
+      <memberOf key="att.global"/>
+    </classes>
+    <content>
+      <empty/>
+    </content>
+    <attList>
+      <attDef ident="key" usage="req">
+        <datatype>
+          <dataRef name="IDREF"/>
+        </datatype>
       </attDef>
     </attList>
   </elementSpec>
@@ -350,5 +444,33 @@
       </alternate>
     </content>
   </dataSpec>
+
+  <classSpec ident="model.content" type="model"/>
+
+  <classSpec ident="att.global" type="atts">
+    <attList>
+      <attDef ident="base" ns="http://www.w3.org/XML/1998/namespace" usage="opt">
+        <datatype>
+          <dataRef name="anyURI"/>
+        </datatype>
+      </attDef>
+      <attDef ident="lang" ns="http://www.w3.org/XML/1998/namespace" usage="opt">
+        <datatype>
+          <dataRef name="language"/>
+        </datatype>
+      </attDef>
+      <attDef ident="id" ns="http://www.w3.org/XML/1998/namespace" usage="opt">
+        <datatype>
+          <dataRef name="ID"/>
+        </datatype>
+      </attDef>
+      <attDef ident="space" ns="http://www.w3.org/XML/1998/namespace" usage="opt">
+        <valList type="closed">
+          <valItem ident="preserve"/>
+          <valItem ident="default"/>
+        </valList>
+      </attDef>
+    </attList>
+  </classSpec>
 
 </schemaSpec>
