@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <uri name="https://tei-c.org/Vault/P5/current/xml/tei/odd/p5subset.xml" uri="p5subset.xml"/>
+</catalog>

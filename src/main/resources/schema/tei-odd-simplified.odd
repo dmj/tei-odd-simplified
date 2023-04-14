@@ -1,0 +1,263 @@
+<?xml-model href="tei-odd-simplified.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="tei-odd-simplified.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<schemaSpec ident="tei-odd-simplified" start="schemaSpec" xmlns="http://www.tei-c.org/ns/1.0">
+  <elementSpec ident="schemaSpec">
+    <content>
+      <alternate minOccurs="1" maxOccurs="unbounded">
+        <elementRef key="elementSpec"/>
+        <elementRef key="dataSpec"/>
+      </alternate>
+    </content>
+    <attList>
+      <attDef ident="ident" usage="req">
+        <datatype>
+          <dataRef name="Name"/>
+        </datatype>
+      </attDef>
+      <attDef ident="start" usage="req">
+        <datatype>
+          <dataRef name="Name"/>
+        </datatype>
+      </attDef>
+    </attList>
+  </elementSpec>
+
+  <elementSpec ident="dataSpec">
+    <content>
+      <elementRef key="content"/>
+    </content>
+    <attList>
+      <attDef ident="ident" usage="req">
+        <datatype>
+          <dataRef name="ID"/>
+        </datatype>
+      </attDef>
+    </attList>
+  </elementSpec>
+
+  <elementSpec ident="elementSpec">
+    <content>
+      <sequence>
+        <elementRef key="altIdent" minOccurs="0" maxOccurs="1"/>
+        <elementRef key="content"/>
+        <elementRef key="attList" minOccurs="0" maxOccurs="1"/>
+      </sequence>
+    </content>
+    <attList>
+      <attDef ident="ident" usage="req">
+        <datatype>
+          <dataRef name="ID"/>
+        </datatype>
+      </attDef>
+      <attDef ident="ns" usage="opt">
+        <datatype>
+          <dataRef name="anyURI"/>
+        </datatype>
+      </attDef>
+    </attList>
+  </elementSpec>
+
+  <elementSpec ident="content">
+    <altIdent>content</altIdent>
+    <content>
+      <alternate>
+        <elementRef key="empty"/>
+        <elementRef key="sequence"/>
+        <elementRef key="alternate"/>
+        <elementRef key="elementRef"/>
+        <elementRef key="dataRef"/>
+        <elementRef key="valList"/>
+      </alternate>
+    </content>
+  </elementSpec>
+
+  <elementSpec ident="altIdent">
+    <content>
+      <dataRef name="Name"/>
+    </content>
+  </elementSpec>
+
+  <elementSpec ident="sequence">
+    <content>
+      <alternate minOccurs="1" maxOccurs="unbounded">
+        <elementRef key="sequence"/>
+        <elementRef key="alternate"/>
+        <elementRef key="elementRef"/>
+        <elementRef key="dataRef"/>
+        <elementRef key="valList"/>
+      </alternate>
+    </content>
+    <attList>
+      <attDef ident="preserveOrder" usage="opt">
+        <datatype>
+          <dataRef name="boolean"/>
+        </datatype>
+      </attDef>
+      <attDef ident="minOccurs" usage="opt">
+        <datatype>
+          <dataRef name="nonNegativeInteger"/>
+        </datatype>
+      </attDef>
+      <attDef ident="maxOccurs" usage="opt">
+        <datatype>
+          <dataRef key="nonNegativeIntegerOrUnbounded"/>
+        </datatype>
+      </attDef>
+    </attList>
+  </elementSpec>
+
+  <elementSpec ident="alternate">
+    <content>
+      <alternate minOccurs="1" maxOccurs="unbounded">
+        <elementRef key="sequence"/>
+        <elementRef key="alternate"/>
+        <elementRef key="elementRef"/>
+        <elementRef key="dataRef"/>
+        <elementRef key="valList"/>
+      </alternate>
+    </content>
+    <attList>
+      <attDef ident="minOccurs" usage="opt">
+        <datatype>
+          <dataRef name="nonNegativeInteger"/>
+        </datatype>
+      </attDef>
+      <attDef ident="maxOccurs" usage="opt">
+        <datatype>
+          <dataRef key="nonNegativeIntegerOrUnbounded"/>
+        </datatype>
+      </attDef>
+    </attList>
+  </elementSpec>
+
+  <elementSpec ident="empty">
+    <content>
+      <empty/>
+    </content>
+  </elementSpec>
+
+  <elementSpec ident="elementRef">
+    <content>
+      <empty/>
+    </content>
+    <attList>
+      <attDef ident="minOccurs" usage="opt">
+        <datatype>
+          <dataRef name="nonNegativeInteger"/>
+        </datatype>
+      </attDef>
+      <attDef ident="maxOccurs" usage="opt">
+        <datatype>
+          <dataRef key="nonNegativeIntegerOrUnbounded"/>
+        </datatype>
+      </attDef>
+      <attDef ident="key" usage="req">
+        <datatype>
+          <dataRef name="IDREF"/>
+        </datatype>
+      </attDef>
+    </attList>
+  </elementSpec>
+
+  <elementSpec ident="attList">
+    <content>
+      <alternate minOccurs="1" maxOccurs="unbounded">
+        <elementRef key="attList"/>
+        <elementRef key="attDef"/>
+      </alternate>
+    </content>
+    <attList>
+      <attDef ident="org" usage="opt">
+        <valList type="closed">
+          <valItem ident="group"/>
+          <valItem ident="choice"/>
+        </valList>
+      </attDef>
+    </attList>
+  </elementSpec>
+
+  <elementSpec ident="attDef">
+    <content>
+      <alternate>
+        <elementRef key="valList"/>
+        <elementRef key="datatype"/>
+      </alternate>
+    </content>
+    <attList>
+      <attDef ident="ident" usage="req">
+        <datatype>
+          <dataRef name="ID"/>
+        </datatype>
+      </attDef>
+      <attDef ident="usage" usage="opt">
+        <valList type="closed">
+          <valItem ident="opt"/>
+          <valItem ident="req"/>
+        </valList>
+      </attDef>
+    </attList>
+  </elementSpec>
+
+  <elementSpec ident="datatype">
+    <content>
+      <elementRef key="dataRef"/>
+    </content>
+  </elementSpec>
+
+  <elementSpec ident="dataRef">
+    <content>
+      <empty/>
+    </content>
+    <attList org="choice">
+      <attDef ident="name">
+        <datatype>
+          <dataRef name="NCName"/>
+        </datatype>
+      </attDef>
+      <attDef ident="key">
+        <datatype>
+          <dataRef name="IDREF"/>
+        </datatype>
+      </attDef>
+    </attList>
+  </elementSpec>
+
+  <elementSpec ident="valList">
+    <content>
+      <elementRef key="valItem" minOccurs="1" maxOccurs="unbounded"/>
+    </content>
+    <attList>
+      <attDef ident="type" usage="opt">
+        <valList type="closed">
+          <valItem ident="closed"/>
+          <valItem ident="open"/>
+        </valList>
+      </attDef>
+    </attList>
+  </elementSpec>
+
+  <elementSpec ident="valItem">
+    <content>
+      <empty/>
+    </content>
+    <attList>
+      <attDef ident="ident">
+        <datatype>
+          <dataRef name="string"/>
+        </datatype>
+      </attDef>
+    </attList>
+  </elementSpec>
+
+  <dataSpec ident="nonNegativeIntegerOrUnbounded">
+    <content>
+      <alternate>
+        <dataRef name="nonNegativeInteger"/>
+        <valList type="closed">
+          <valItem ident="unbounded"/>
+        </valList>
+      </alternate>
+    </content>
+  </dataSpec>
+
+</schemaSpec>
