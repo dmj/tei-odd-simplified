@@ -13,16 +13,24 @@
    </rng:start>
    <rng:define name="schemaSpec">
       <rng:element name="schemaSpec" ns="http://www.tei-c.org/ns/1.0">
-         <rng:choice>
-            <rng:ref name="elementSpec"/>
-            <rng:ref name="dataSpec"/>
-         </rng:choice>
-         <rng:zeroOrMore>
+         <group xmlns="http://relaxng.org/ns/structure/1.0">
+            <rng:zeroOrMore>
+               <rng:ref name="gloss"/>
+            </rng:zeroOrMore>
+            <rng:zeroOrMore>
+               <rng:ref name="desc"/>
+            </rng:zeroOrMore>
             <rng:choice>
                <rng:ref name="elementSpec"/>
                <rng:ref name="dataSpec"/>
             </rng:choice>
-         </rng:zeroOrMore>
+            <rng:zeroOrMore>
+               <rng:choice>
+                  <rng:ref name="elementSpec"/>
+                  <rng:ref name="dataSpec"/>
+               </rng:choice>
+            </rng:zeroOrMore>
+         </group>
          <rng:group>
             <rng:attribute name="ident" ns="">
                <rng:data type="Name"/>
@@ -33,9 +41,41 @@
          </rng:group>
       </rng:element>
    </rng:define>
+   <rng:define name="gloss">
+      <rng:element name="gloss" ns="http://www.tei-c.org/ns/1.0">
+         <rng:text/>
+         <rng:group>
+            <rng:optional>
+               <rng:attribute name="lang" ns="http://www.w3.org/XML/1998/namespace">
+                  <rng:data type="language"/>
+               </rng:attribute>
+            </rng:optional>
+         </rng:group>
+      </rng:element>
+   </rng:define>
+   <rng:define name="desc">
+      <rng:element name="desc" ns="http://www.tei-c.org/ns/1.0">
+         <rng:text/>
+         <rng:group>
+            <rng:optional>
+               <rng:attribute name="lang" ns="http://www.w3.org/XML/1998/namespace">
+                  <rng:data type="language"/>
+               </rng:attribute>
+            </rng:optional>
+         </rng:group>
+      </rng:element>
+   </rng:define>
    <rng:define name="dataSpec">
       <rng:element name="dataSpec" ns="http://www.tei-c.org/ns/1.0">
-         <rng:ref name="content"/>
+         <group xmlns="http://relaxng.org/ns/structure/1.0">
+            <rng:zeroOrMore>
+               <rng:ref name="gloss"/>
+            </rng:zeroOrMore>
+            <rng:zeroOrMore>
+               <rng:ref name="desc"/>
+            </rng:zeroOrMore>
+            <rng:ref name="content"/>
+         </group>
          <rng:group>
             <rng:attribute name="ident" ns="">
                <rng:data type="ID"/>
@@ -49,6 +89,12 @@
             <rng:optional>
                <rng:ref name="altIdent"/>
             </rng:optional>
+            <rng:zeroOrMore>
+               <rng:ref name="gloss"/>
+            </rng:zeroOrMore>
+            <rng:zeroOrMore>
+               <rng:ref name="desc"/>
+            </rng:zeroOrMore>
             <rng:ref name="content"/>
             <rng:optional>
                <rng:ref name="attList"/>
@@ -69,6 +115,7 @@
    <rng:define name="content">
       <rng:element name="content" ns="http://www.tei-c.org/ns/1.0">
          <rng:choice>
+            <rng:ref name="textNode"/>
             <rng:ref name="empty"/>
             <rng:ref name="sequence"/>
             <rng:ref name="alternate"/>
@@ -81,6 +128,11 @@
    <rng:define name="altIdent">
       <rng:element name="altIdent" ns="http://www.tei-c.org/ns/1.0">
          <rng:data type="Name"/>
+      </rng:element>
+   </rng:define>
+   <rng:define name="textNode">
+      <rng:element name="textNode" ns="http://www.tei-c.org/ns/1.0">
+         <rng:empty/>
       </rng:element>
    </rng:define>
    <rng:define name="sequence">
@@ -218,10 +270,18 @@
    </rng:define>
    <rng:define name="attDef">
       <rng:element name="attDef" ns="http://www.tei-c.org/ns/1.0">
-         <rng:choice>
-            <rng:ref name="valList"/>
-            <rng:ref name="datatype"/>
-         </rng:choice>
+         <group xmlns="http://relaxng.org/ns/structure/1.0">
+            <rng:zeroOrMore>
+               <rng:ref name="gloss"/>
+            </rng:zeroOrMore>
+            <rng:zeroOrMore>
+               <rng:ref name="desc"/>
+            </rng:zeroOrMore>
+            <rng:choice>
+               <rng:ref name="valList"/>
+               <rng:ref name="datatype"/>
+            </rng:choice>
+         </group>
          <rng:group>
             <rng:attribute name="ident" ns="">
                <rng:data type="ID"/>
@@ -232,6 +292,11 @@
                      <rng:value>opt</rng:value>
                      <rng:value>req</rng:value>
                   </rng:choice>
+               </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+               <rng:attribute name="ns" ns="">
+                  <rng:data type="anyURI"/>
                </rng:attribute>
             </rng:optional>
          </rng:group>

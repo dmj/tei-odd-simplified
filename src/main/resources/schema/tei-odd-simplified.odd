@@ -3,10 +3,14 @@
 <schemaSpec ident="tei-odd-simplified" start="schemaSpec" xmlns="http://www.tei-c.org/ns/1.0">
   <elementSpec ident="schemaSpec">
     <content>
-      <alternate minOccurs="1" maxOccurs="unbounded">
-        <elementRef key="elementSpec"/>
-        <elementRef key="dataSpec"/>
-      </alternate>
+      <sequence>
+        <elementRef key="gloss" minOccurs="0" maxOccurs="unbounded"/>
+        <elementRef key="desc" minOccurs="0" maxOccurs="unbounded"/>
+        <alternate minOccurs="1" maxOccurs="unbounded">
+          <elementRef key="elementSpec"/>
+          <elementRef key="dataSpec"/>
+        </alternate>
+      </sequence>
     </content>
     <attList>
       <attDef ident="ident" usage="req">
@@ -22,9 +26,39 @@
     </attList>
   </elementSpec>
 
+  <elementSpec ident="gloss">
+    <content>
+      <textNode/>
+    </content>
+    <attList>
+      <attDef ident="lang" ns="http://www.w3.org/XML/1998/namespace" usage="opt">
+        <datatype>
+          <dataRef name="language"/>
+        </datatype>
+      </attDef>
+    </attList>
+  </elementSpec>
+
+  <elementSpec ident="desc">
+    <content>
+      <textNode/>
+    </content>
+    <attList>
+      <attDef ident="lang" ns="http://www.w3.org/XML/1998/namespace" usage="opt">
+        <datatype>
+          <dataRef name="language"/>
+        </datatype>
+      </attDef>
+    </attList>
+  </elementSpec>
+
   <elementSpec ident="dataSpec">
     <content>
-      <elementRef key="content"/>
+      <sequence>
+        <elementRef key="gloss" minOccurs="0" maxOccurs="unbounded"/>
+        <elementRef key="desc" minOccurs="0" maxOccurs="unbounded"/>
+        <elementRef key="content"/>
+      </sequence>
     </content>
     <attList>
       <attDef ident="ident" usage="req">
@@ -39,6 +73,8 @@
     <content>
       <sequence>
         <elementRef key="altIdent" minOccurs="0" maxOccurs="1"/>
+        <elementRef key="gloss" minOccurs="0" maxOccurs="unbounded"/>
+        <elementRef key="desc" minOccurs="0" maxOccurs="unbounded"/>
         <elementRef key="content"/>
         <elementRef key="attList" minOccurs="0" maxOccurs="1"/>
       </sequence>
@@ -61,6 +97,7 @@
     <altIdent>content</altIdent>
     <content>
       <alternate>
+        <elementRef key="textNode"/>
         <elementRef key="empty"/>
         <elementRef key="sequence"/>
         <elementRef key="alternate"/>
@@ -74,6 +111,12 @@
   <elementSpec ident="altIdent">
     <content>
       <dataRef name="Name"/>
+    </content>
+  </elementSpec>
+
+  <elementSpec ident="textNode">
+    <content>
+      <empty/>
     </content>
   </elementSpec>
 
@@ -178,10 +221,14 @@
 
   <elementSpec ident="attDef">
     <content>
-      <alternate>
-        <elementRef key="valList"/>
-        <elementRef key="datatype"/>
-      </alternate>
+      <sequence>
+        <elementRef key="gloss" minOccurs="0" maxOccurs="unbounded"/>
+        <elementRef key="desc" minOccurs="0" maxOccurs="unbounded"/>
+        <alternate>
+          <elementRef key="valList"/>
+          <elementRef key="datatype"/>
+        </alternate>
+      </sequence>
     </content>
     <attList>
       <attDef ident="ident" usage="req">
@@ -194,6 +241,11 @@
           <valItem ident="opt"/>
           <valItem ident="req"/>
         </valList>
+      </attDef>
+      <attDef ident="ns" usage="opt">
+        <datatype>
+          <dataRef name="anyURI"/>
+        </datatype>
       </attDef>
     </attList>
   </elementSpec>
