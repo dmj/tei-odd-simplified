@@ -123,6 +123,7 @@
   <elementSpec ident="sequence">
     <content>
       <alternate minOccurs="1" maxOccurs="unbounded">
+        <elementRef key="textNode"/>
         <elementRef key="sequence"/>
         <elementRef key="alternate"/>
         <elementRef key="elementRef"/>
@@ -152,6 +153,7 @@
   <elementSpec ident="alternate">
     <content>
       <alternate minOccurs="1" maxOccurs="unbounded">
+        <elementRef key="textNode"/>
         <elementRef key="sequence"/>
         <elementRef key="alternate"/>
         <elementRef key="elementRef"/>
